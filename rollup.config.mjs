@@ -1,62 +1,28 @@
 import commonjs from '@rollup/plugin-commonjs'
-//import pkg from './package.json'
 import {nodeResolve} from '@rollup/plugin-node-resolve'
-import {visualizer} from 'rollup-plugin-visualizer'
 import strip from '@rollup/plugin-strip'
 import typescript from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
-// import sass from 'rollup-plugin-sass';
-// import autoprefixer from 'autoprefixer'
-// import css from "rollup-plugin-import-css";
 import del from 'rollup-plugin-delete'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
-// import {RollupOptions} from "rollup";
 import preserveDirectives from 'rollup-preserve-directives'
 
 const commonPlugins = [
-
-    //del({targets: 'lib/*'}),
     commonjs(),
-    nodeResolve({
-        // extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        // moduleDirectories: ['node_modules', 'src'],
-        // preferBuiltins: false
-    }),
+    nodeResolve({}),
     json(),
     typescript({
         tsconfig: 'tsconfig.json',
     }),
     preserveDirectives(),
-    // sass(),
-    // scssPlugin({
-    //     // fileName: 'bundle.css',
-    //     include: ['**/*.css', '**/*.scss'],
-    //     exclude: 'node_modules/**'
-    // }),
-    // cssModules(),
-    // postcss({
-    //     // sourceMap: true,
-    //     extract: true,
-    //     plugins: [autoprefixer()],
-    //     // minimize: true,
-    //     // writeDefinitions: true,
-    //     modules: true,
-    //     namedExports: true,
-    //     // process: sass,
-    //     //use: ['scss'],
-    // }),
-    //css(),
     strip({
         include: ['**/*.(js|mjs|ts|tsx)'],
         debugger: true,
         functions: ['console.log', 'console.debug'],
         sourceMap: true
     }),
-    terser(),
-    visualizer({
-        filename: 'build/status.common.html'
-    })
+    terser()
 ]
 
 let commonConfig = [{
@@ -68,10 +34,8 @@ let commonConfig = [{
         sourcemap: false,
         assetFileNames: '[name][extname]'
     },
-    external: [
-        //...Object.keys(pkg.dependencies || {})
-    ],
-    plugins: commonPlugins
+    external: [],
+    plugins: [del({targets: 'lib/*'}), ...commonPlugins]
 },
     {
         input: 'src/index.common.tsx',

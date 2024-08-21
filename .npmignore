@@ -1,8 +1,14 @@
 .idea/
 .eslintrc.js
+.vscode/
+eslint.config.mjs
 tsconfig.json
-rollup.config.js
+rollup.config.mjs
+*.code-workspace
 src/
 lib/status.html
 lib/dts/
-example/
+examples/
+dts/
+build/
+scripts/

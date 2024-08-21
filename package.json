@@ -1,14 +1,14 @@
 {
   "name": "@pnnh/stele",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "个人项目公共组件",
   "keywords": [
     "editor"
   ],
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "rollup --config rollup.config.mjs",
-    "publish": "npm run build && npm publish"
+    "build": "node scripts/build.mjs",
+    "publish": "node scripts/publish.mjs"
   },
   "exports": {
     ".": {
@@ -103,6 +103,7 @@
     "tslib": "^2.6.3",
     "typescript": "^5.0.3",
     "typescript-eslint": "^8.1.0",
-    "typescript-plugin-css-modules": "^5.1.0"
+    "typescript-plugin-css-modules": "^5.1.0",
+    "zx": "^8.1.4"
   }
 }

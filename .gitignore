@@ -16,5 +16,6 @@ build/
 *.js
 *.js.map
 esm/
-build/
 dts/
+publish/lib
+publish/package.json
