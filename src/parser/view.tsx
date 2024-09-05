@@ -1,6 +1,7 @@
 import {CodeBlockNode, HeadingNode, ImageNode, LinkNode, ListNode, ParagraphNode, SteleNode} from '@/models/stele'
 import {generatorRandomString} from "@/utils/string";
 import {TocItem} from "@/models/toc";
+import {encodeBase64String} from "@/utils/base64";
 
 export function buildNodeView(tocList: Array<TocItem>, node: SteleNode, assetsUrl: string): JSX.Element {
     if (!node) return <></>
@@ -97,7 +98,7 @@ function buildHeader(tocList: Array<TocItem>, node: HeadingNode) {
     const children = node.children
     if (!children || children.length < 1) return <></>
     const headerTitle = node.text
-    const randId = generatorRandomString(8)
+    const randId = encodeBase64String(headerTitle) // 这里不能随机，否则会出现server和client渲染不一致
     tocList.push({title: headerTitle, header, id: randId})
 
     switch (header) {
