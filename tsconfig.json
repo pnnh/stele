@@ -6,7 +6,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "noImplicitAny": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "allowJs": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
@@ -21,16 +21,9 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "~/*": [
-        "./node_modules/*"
       ]
     },
-    "plugins": [
-      //      {
-      //        "name": "typescript-plugin-css-modules"
-      //      }
-    ]
+    "plugins": []
   },
   "include": [
     "src/**/*"

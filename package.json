@@ -7,8 +7,11 @@
   ],
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "publish": "node scripts/publish.mjs"
+    "build": "rollup --config rollup.config.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pnnh/stele.git"
   },
   "exports": {
     ".": {

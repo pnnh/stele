@@ -1,5 +1,4 @@
 import {CodeBlockNode, HeadingNode, ImageNode, LinkNode, ListNode, ParagraphNode, SteleNode} from '@/models/stele'
-import {generatorRandomString} from "@/utils/string";
 import {TocItem} from "@/models/toc";
 import {encodeBase64String} from "@/utils/base64";
 

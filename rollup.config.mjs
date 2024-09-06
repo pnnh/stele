@@ -31,7 +31,7 @@ let commonConfig = [{
     output: {
         file: 'lib/index.common.mjs',
         format: 'esm',
-        sourcemap: false,
+        sourcemap: true,
         assetFileNames: '[name][extname]'
     },
     external: [],
@@ -63,7 +63,7 @@ const serverConfig = [{
     output: {
         file: 'lib/index.server.mjs',
         format: 'esm',
-        sourcemap: false,
+        sourcemap: true,
         assetFileNames: '[name][extname]'
     },
     external: ['react'],
