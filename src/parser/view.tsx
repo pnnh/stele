@@ -137,7 +137,8 @@ export function buildCodeBlock(tocList: Array<TocItem>, node: CodeBlockNode) {
 }
 
 export function buildImage(node: ImageNode, assetsUrl: string) {
-    return <img key={node.id} className={'stImg'} src={`${assetsUrl}/${node.href}`} alt={node.text}/>
+    const imageUrn = encodeBase64String(node.href)
+    return <img key={node.id} className={'stImg'} src={`${assetsUrl}/${imageUrn}`} alt={node.text}/>
 }
 
 export function buildList(node: ListNode, assetsUrl: string) {
