@@ -7,6 +7,7 @@ import {
 } from 'slate'
 import { NewTextNode, TextName } from './text'
 import { selectNodeLast } from '../helpers'
+import {css} from "@emotion/css";
 
 export const QuoteBlockName = 'quote-block'
 
@@ -41,7 +42,15 @@ export function NewQuoteBlockNode (text: string): SFQuoteBlockNode {
 }
 
 export function SFQuoteBlockView (props: { attributes: any, children: any, node: SFQuoteBlockNode }) {
-  return <div className={'quote-block'} data-name={QuoteBlockName} {...props.attributes}>
+    const styleQuoteBlock = css`
+        border-left: 8px solid #dddfe4;
+        background: #eef0f4;
+        blockquote {
+            margin: 0 0 0 16px;
+            padding: 8px 0;
+        }
+    `
+  return <div className={styleQuoteBlock} data-name={QuoteBlockName} {...props.attributes}>
     <blockquote>
       {props.children}
     </blockquote>

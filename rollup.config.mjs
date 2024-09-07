@@ -6,7 +6,6 @@ import dts from 'rollup-plugin-dts'
 import del from 'rollup-plugin-delete'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
-import preserveDirectives from 'rollup-preserve-directives'
 
 const commonPlugins = [
     commonjs(),
@@ -15,7 +14,6 @@ const commonPlugins = [
     typescript({
         tsconfig: 'tsconfig.json',
     }),
-    preserveDirectives(),
     strip({
         include: ['**/*.(js|mjs|ts|tsx)'],
         debugger: true,

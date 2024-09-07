@@ -23,7 +23,7 @@
     "slate": "^0.91.4",
     "slate-history": "^0.86.0",
     "slate-react": "^0.92.0",
-    "@pnnh/stele": "file:../.."
+    "@pnnh/stele": "0.2.0"
   },
   "devDependencies": {
     "@types/estree": "^1.0.0",

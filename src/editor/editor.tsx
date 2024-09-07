@@ -37,6 +37,7 @@ import './highlight'
 import { parseDescendant, parseDescendantArray, parseElement, parseText, SFEditorModel, SFText } from './nodes/node'
 import { selectNodeLast, setLocalStorage } from './helpers'
 import { QuoteBlockName, SFQuoteBlockToolbar, SFQuoteBlockView } from './nodes/quote-block'
+import {styles} from "@/editor/styles";
 
 const StorageKey = 'editor-value'
 // 这里是单例的，一个页面只能有一个Editor
@@ -61,8 +62,8 @@ function SFXEditor (props: { value: SFEditorModel, onChange: (value: SFEditorMod
                  // rootNode = {children: descendants};
                }}>
 
-            <div className={'stele-editor'}>
-                <div className={'body'}>
+            <div className={styles.steleEditor}>
+                <div className={styles.body}>
                     <Editable
                         decorate={decorate}
                         renderElement={renElement}
@@ -295,35 +296,33 @@ function Element ({ attributes, children, element }: { attributes: any, children
     view = <SFParagraphView attributes={attributes} node={element as SFParagraphNode}>{children}</SFParagraphView>
     actionsView = <SFParagraphActions node={element as SFParagraphNode}/>
   }
-  const elementClass = 'element element-' + element.name + (isActive ? ' element-active' : '')
-  const actionsClass = 'actions ' + (isActive ? '' : 'invisible')
-  return <div className={elementClass}
+  return <div className={isActive ? styles.elementActive : ''}
                 onMouseEnter={() => setIsActive(true)}
                 onMouseLeave={() => setIsActive(false)}>
-        <div className={actionsClass} contentEditable={false}>
-            <div className={'left'}>
+        <div className={isActive ? styles.actions : styles.actionsInvisible} contentEditable={false}>
+            <div className={styles.left}>
                 <SFParagraphToolbar disabled={false} node={element as SFParagraphNode}/>
                 <SFHeaderToolbar node={element}/>
                 <SFCodeBlockToolbar node={element}/>
                 <SFQuoteBlockToolbar node={element}/>
-                <div className={'extra'}>
+                <div className={styles.extra}>
                     {actionsView}
                 </div>
             </div>
-            <div className={'right'}>
-                <button title='上移' className={'icon-button'}
+            <div>
+                <button title='上移' className={styles.iconButton}
                         onMouseDown={() => upOperation(element)} disabled={false}>
                     <i className="ri-arrow-up-line"></i></button>
-                <button title='下移' className={'icon-button'}
+                <button title='下移' className={styles.iconButton}
                         onMouseDown={() => downOperation(element)} disabled={false}>
                     <i className="ri-arrow-down-line"></i></button>
-                <button title='撤销' className={'icon-button'}
+                <button title='撤销' className={styles.iconButton}
                         onMouseDown={undoOperation} disabled={false}>
                     <i className="ri-arrow-go-back-line"></i></button>
-                <button title='重做' className={'icon-button'}
+                <button title='重做' className={styles.iconButton}
                         onMouseDown={redoOperation} disabled={false}>
                     <i className="ri-arrow-go-forward-line"></i></button>
-                <button title='移除块' className={'icon-button'}
+                <button title='移除块' className={styles.iconButton}
                         onMouseDown={() => removeNodes(element)} disabled={false}>
                     <i className="ri-close-line"></i>
                 </button>

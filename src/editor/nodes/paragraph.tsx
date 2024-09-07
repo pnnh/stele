@@ -11,6 +11,7 @@ import {
 import { NewTextNode, TextName } from './text'
 import isHotkey from 'is-hotkey'
 import { selectNodeLast } from '../helpers'
+import {css} from "@emotion/css";
 
 export const ParagraphName = 'paragraph'
 
@@ -65,14 +66,33 @@ function isActive (props: any): boolean {
   return node.name === 'paragraph'
 }
 
+const styleParagraph = css`
+  position: relative;
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 4px 8px;
+  }
+  .show {
+    position: absolute;
+    top: -32px;
+    left: 40%;
+    overflow: hidden;background-color:#fff;
+  }
+  .inline-code {
+    background-color: #edebe9;
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+`
+
 export function SFParagraphView (props: { attributes: any, children: any, node: SFParagraphNode }) {
-  return <div className={'paragraph'}>
+  return <div className={styleParagraph}>
     <p data-name={ParagraphName} {...props.attributes}>{props.children}</p>
   </div>
 }
 
 export function ParagraphOnKeyDown (editor: ReactEditor, event: KeyboardEvent<HTMLParagraphElement>) {
-  console.debug('ParagraphOnKeyDown')
   if (isHotkey('mod+b', event)) {
     console.debug('加粗')
     Editor.addMark(editor, 'bold', true)

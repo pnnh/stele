@@ -10,6 +10,7 @@ import {
   Transforms
 } from 'slate'
 import { selectNodeLast } from '../helpers'
+import {css} from "@emotion/css";
 
 export const CodeBlockName = 'code-block'
 export const CodeName = 'code'
@@ -37,9 +38,22 @@ export function NewCodeBlockNode (language: string, text: string): SFCodeBlockNo
   return block
 }
 
+const styles = {
+  codeBlock: css`
+    background: #f6f6f6;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 8px 0;
+    line-height: 24px;
+  `,
+  selectLanguage: css`
+    float: right;position: relative;top: 4px;
+  `
+}
+
 export function SFCodeBlockView (props: { attributes: any, children: any, node: SFCodeBlockNode }) {
-  console.debug('SFCodeBlockView', props)
-  return <pre data-name={CodeBlockName} className={'code-block language-' + props.node.language}
+
+  return <pre data-name={CodeBlockName} className={styles.codeBlock}
               {...props.attributes}>
             <SelectLanguage element={props.node}/>
     {props.children}
@@ -61,7 +75,6 @@ function isActive (props: any): boolean {
 }
 
 export function SFCodeBlockLeafView (props: { attributes: any, children: any, node: any }) {
-  console.debug('SFCodeBlockLeafView=========', props.node)
   let className = 'token '
   for (const k in props.node) {
     if (k === 'name' || k === 'text') continue
@@ -78,7 +91,6 @@ export function SFCodeBlockLeafView (props: { attributes: any, children: any, no
 export function SFCodeBlockToolbar (props: { node: SlateNode }) {
   const editor = useSlate() as ReactEditor
   const node = NewCodeBlockNode('js', '')
-  console.debug('SFCodeBlockToolbar', node)
   const className = 'icon-button' + (isBlockActive(editor, isActive) ? ' active' : '')
   return <button title='段落' className={className}
                  onMouseDown={(event) => {
@@ -96,7 +108,7 @@ export function SFCodeBlockToolbar (props: { node: SlateNode }) {
 function SelectLanguage (props: { element: SFCodeBlockNode }) {
   const editor = useSlate() as ReactEditor
   const [language, setLanguage] = useState<string>(props.element.language)
-  return <select name="select" value={language} className={'select-language'}
+  return <select name="select" value={language} className={styles.selectLanguage}
                  onChange={(event) => {
                    console.debug('Select Language', editor, event)
                    if (event.target.value) {
