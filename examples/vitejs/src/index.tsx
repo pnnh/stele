@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
 import * as ReactDOMClient from 'react-dom/client'
 import {SFEditorModel, SFXEditor} from "@pnnh/stele";
-import 'prismjs/themes/prism.css';
-import 'remixicon/fonts/remixicon.css';
- 
+
 const initialValue = {
     children: [{
         name: 'paragraph',

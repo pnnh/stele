@@ -1,9 +1,10 @@
 import React from "react";
-import {TocItem} from "@/models/toc";
-import {SteleBody} from "@/models/stele";
-import {markdownToStele} from "@/parser/markdown";
-import {buildNodeView} from "@/parser/view";
+import {TocItem} from "@/common/models/toc";
+import {SteleBody} from "@/common/models/stele";
+import {markdownToStele} from "@/common/parser/markdown";
+import {buildNodeView} from "@/common/parser/view";
 
+// @Deprecated 使用 ServerBuildBodyHtml 代替
 export function BuildBodyHtml(props: {
     tocList: Array<TocItem>, header: string, body: unknown,
     assetsUrl: string
@@ -25,3 +26,5 @@ export function BuildBodyHtml(props: {
         {buildNodeView(props.tocList, bodyObject, props.assetsUrl)}
     </div>
 }
+
+export type ServerBuildBodyHtml = typeof BuildBodyHtml

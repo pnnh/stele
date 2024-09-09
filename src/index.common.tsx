@@ -1,12 +1,7 @@
-export * from './models/toc'
-export * from './models/stele'
-
-export * from './parser/markdown'
-export * from './utils/base64'
-export * from './utils/helpers'
-export * from './utils/media'
-export * from './utils/string'
-export * from './parser/view'
+export * from './common/models/toc'
+export * from './common/models/stele'
+export * from './common/parser/markdown'
+export * from './common/parser/view'
 
 export function sayHelloCommon(word: string) {
     return "Hello from SteleCommon!" + word

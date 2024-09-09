@@ -1,6 +1,14 @@
-import {CodeBlockNode, HeadingNode, ImageNode, LinkNode, ListNode, ParagraphNode, SteleNode} from '@/models/stele'
-import {TocItem} from "@/models/toc";
-import {encodeBase64String} from "@/utils/base64";
+import {
+    CodeBlockNode,
+    HeadingNode,
+    ImageNode,
+    LinkNode,
+    ListNode,
+    ParagraphNode,
+    SteleNode
+} from '@/common/models/stele'
+import {TocItem} from "@/common/models/toc";
+import {encodeBase64String} from "@pnnh/atom";
 
 export function buildNodeView(tocList: Array<TocItem>, node: SteleNode, assetsUrl: string): JSX.Element {
     if (!node) return <></>

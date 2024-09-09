@@ -1,9 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
-import {SFEditorModel, SFXEditor} from "@pnnh/stele";
-import 'prismjs/themes/prism.css';
-import 'remixicon/fonts/remixicon.css';
+import {SFEditorModel, SFXEditor} from "@pnnh/stele/client";
 
 const initialValue = {
     children: [{

@@ -6,6 +6,7 @@ import dts from 'rollup-plugin-dts'
 import del from 'rollup-plugin-delete'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
+import pkg from './package.json' with {type: 'json'}
 
 const commonPlugins = [
     commonjs(),
@@ -22,6 +23,11 @@ const commonPlugins = [
     }),
     terser()
 ]
+const commonExternal = [
+    ...(pkg.dependencies ? Object.keys(pkg.dependencies) : []),
+    ...(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : []),
+    ...(pkg.devDependencies ? Object.keys(pkg.devDependencies) : [])
+]
 
 let commonConfig = [{
     strictDeprecations: true,
@@ -32,7 +38,7 @@ let commonConfig = [{
         sourcemap: true,
         assetFileNames: '[name][extname]'
     },
-    external: [],
+    external: commonExternal,
     plugins: [del({targets: 'lib/*'}), ...commonPlugins]
 },
     {
@@ -43,7 +49,7 @@ let commonConfig = [{
             sourcemap: true,
             assetFileNames: '[name][extname]'
         },
-        external: [],
+        external: commonExternal,
         plugins: commonPlugins
     },
     {
@@ -64,7 +70,7 @@ const serverConfig = [{
         sourcemap: true,
         assetFileNames: '[name][extname]'
     },
-    external: ['react'],
+    external: commonExternal,
     plugins: commonPlugins
 }, {
     input: 'src/index.server.tsx',
@@ -74,7 +80,7 @@ const serverConfig = [{
         sourcemap: true,
         assetFileNames: '[name][extname]'
     },
-    external: ['react'],
+    external: commonExternal,
     plugins: commonPlugins
 },
     {
@@ -95,7 +101,7 @@ const clientConfig = [{
         sourcemap: true,
         assetFileNames: '[name][extname]'
     },
-    external: ['react'],
+    external: commonExternal,
     plugins: commonPlugins
 }, {
     input: 'src/index.client.tsx',
@@ -105,7 +111,7 @@ const clientConfig = [{
         sourcemap: true,
         assetFileNames: '[name][extname]'
     },
-    external: ['react'],
+    external: commonExternal,
     plugins: commonPlugins
 },
     {

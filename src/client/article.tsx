@@ -1,6 +1,6 @@
 import React from "react";
-import {RenderCodeBlock} from "@/parser/codeblock";
-import {ArticleStyle} from "@/parser/style";
+import {RenderCodeBlock} from "./codeblock";
+import {ArticleStyle} from "./style";
 
 export function ArticleComponent({children}: {
     children: React.ReactNode
