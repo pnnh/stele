@@ -2,7 +2,6 @@ import React from 'react'
 import {css} from "@emotion/react";
 
 const styleText = css`
-
     .headerOne {
         margin: 0 0 1.3rem;
         font-weight: 600;
@@ -106,5 +105,9 @@ const styleText = css`
 `
 
 export function ArticleStyle() {
-    return <style>{styleText.styles}</style>
+    const rawStyle = styleText.styles;
+    const outputStyle = rawStyle.replace(/\n/g, '').replace(/ /g, '');
+    return <style>
+        {outputStyle}
+    </style>
 }
