@@ -14,7 +14,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import postcss from "postcss";
 import css from "rollup-plugin-import-css";
-
+import replace from '@rollup/plugin-replace'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -22,6 +22,18 @@ const commonPlugins = [
     commonjs(),
     nodeResolve({}),
     json(),
+    alias({
+        entries: [
+            {find: '@', replacement: path.resolve(__dirname, 'src')},
+        ]
+    }),
+    replace({
+        preventAssignment: true,
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        __buildDate__: () => JSON.stringify(new Date()),
+        __buildVersion: 15,
+        '@': path.resolve(__dirname, 'src')
+    }),
     typescript({
         tsconfig: 'tsconfig.json',
     }),
