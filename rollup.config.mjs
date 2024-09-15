@@ -7,6 +7,16 @@ import del from 'rollup-plugin-delete'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
 import pkg from './package.json' with {type: 'json'}
+import sass from 'rollup-plugin-sass';
+import {writeFileSync} from "node:fs";
+import alias from "@rollup/plugin-alias";
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import postcss from "postcss";
+import css from "rollup-plugin-import-css";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const commonPlugins = [
     commonjs(),
@@ -14,6 +24,9 @@ const commonPlugins = [
     json(),
     typescript({
         tsconfig: 'tsconfig.json',
+    }),
+    sass({
+        output: 'lib/assets/index.css',
     }),
     strip({
         include: ['**/*.(js|mjs|ts|tsx)'],
@@ -29,6 +42,15 @@ const commonExternal = [
     ...(pkg.devDependencies ? Object.keys(pkg.devDependencies) : [])
 ]
 
+const dtsPlugins = [
+    alias({
+        entries: [
+            {find: '@', replacement: path.resolve(__dirname, 'src')},
+        ]
+    }),
+    dts()
+]
+
 let commonConfig = [{
     strictDeprecations: true,
     input: 'src/index.common.tsx',
@@ -39,7 +61,10 @@ let commonConfig = [{
         assetFileNames: '[name][extname]'
     },
     external: commonExternal,
-    plugins: [del({targets: 'lib/*'}), ...commonPlugins]
+    plugins: [
+        del({targets: 'lib/*'}),
+
+        ...commonPlugins]
 },
     {
         input: 'src/index.common.tsx',
@@ -56,9 +81,7 @@ let commonConfig = [{
         input: 'lib/dts/index.common.d.ts',
         output: [{file: 'lib/index.common.d.ts'}],
         external: [/\.(css|scss)$/],
-        plugins: [
-            dts()
-        ]
+        plugins: dtsPlugins
     }
 ]
 
@@ -87,9 +110,7 @@ const serverConfig = [{
         input: 'lib/dts/index.server.d.ts',
         output: [{file: 'lib/index.server.d.ts'}],
         external: [/\.(css|scss)$/],
-        plugins: [
-            dts()
-        ]
+        plugins: dtsPlugins
     }
 ]
 
@@ -118,9 +139,7 @@ const clientConfig = [{
         input: 'lib/dts/index.client.d.ts',
         output: [{file: 'lib/index.client.d.ts'}],
         external: [/\.(css|scss)$/],
-        plugins: [
-            dts()
-        ]
+        plugins: dtsPlugins
     }
 ]
 

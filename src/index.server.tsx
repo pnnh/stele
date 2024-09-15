@@ -1,4 +1,4 @@
-export * from './index.common'
+export * from './base'
 export * from './server/article'
 
 export function helloFromSteleServer() {

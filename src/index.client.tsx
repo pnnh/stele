@@ -1,4 +1,4 @@
-export * from './index.common'
+export * from './base'
 export * from './client/editor/editor'
 export * from './client/editor/nodes/node'
 export * from './client/editor/nodes/codeblock'

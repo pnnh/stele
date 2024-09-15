@@ -22,7 +22,7 @@ export function BuildBodyHtml(props: {
     const children = bodyObject.children
     if (!children || children.length < 1) return <></>
 
-    return <div>
+    return <div className={'stele-viewer'}>
         {buildNodeView(props.tocList, bodyObject, props.assetsUrl)}
     </div>
 }
