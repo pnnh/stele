@@ -106,7 +106,7 @@ const styleText = css`
 
 export function ArticleStyle() {
     const rawStyle = styleText.styles;
-    const outputStyle = rawStyle.replace(/\n/g, '').replace(/ /g, '');
+    const outputStyle = rawStyle.replace(/\n/g, '');
     return <style>
         {outputStyle}
     </style>

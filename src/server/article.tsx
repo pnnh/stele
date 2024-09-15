@@ -3,10 +3,14 @@ import {TocItem} from "@/common/models/toc";
 import {SteleBody} from "@/common/models/stele";
 import {markdownToStele} from "@/common/parser/markdown";
 import {buildNodeView} from "@/common/parser/view";
+import {packageName} from "@/common/package";
 
 // @Deprecated 使用 ServerBuildBodyHtml 代替
 export function BuildBodyHtml(props: {
-    tocList: Array<TocItem>, header: string, body: unknown,
+    tocList: Array<TocItem>,
+    header: string,
+    body: unknown,
+    libUrl: string,
     assetsUrl: string
 }) {
     if (!props.body) return <></>
@@ -23,6 +27,7 @@ export function BuildBodyHtml(props: {
     if (!children || children.length < 1) return <></>
 
     return <div className={'stele-viewer'}>
+        <link rel="stylesheet" href={`${props.libUrl}/${packageName}/lib/assets/index.css`}/>
         {buildNodeView(props.tocList, bodyObject, props.assetsUrl)}
     </div>
 }

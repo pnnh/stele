@@ -9,6 +9,7 @@ import {
 } from '@/common/models/stele'
 import {TocItem} from "@/common/models/toc";
 import {encodeBase64String} from "@pnnh/atom";
+import Prism, {Grammar} from "prismjs";
 
 export function buildNodeView(tocList: Array<TocItem>, node: SteleNode, assetsUrl: string): JSX.Element {
     if (!node) return <></>
@@ -137,10 +138,11 @@ export function buildCodeBlock(tocList: Array<TocItem>, node: CodeBlockNode) {
         }).join()
     }
 
-    return <code key={node.id} className={'codeblock'}>
-        <div data-language={language}>
-            {codeText}
-        </div>
+    const langGrammar = Prism.languages[language as keyof Grammar] || Prism.languages.javascript
+    const codeHtml = Prism.highlight(codeText, langGrammar, 'javascript')
+    return <code key={node.id} className={'codeblock'} data-language={language}>
+        <pre dangerouslySetInnerHTML={{__html: codeHtml}}>
+        </pre>
     </code>
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import {RenderCodeBlock} from "./codeblock";
 import {ArticleStyle} from "./style";
 
 export function ArticleComponent({children}: {
@@ -8,6 +7,5 @@ export function ArticleComponent({children}: {
     return <div>
         <ArticleStyle/>
         {children}
-        <RenderCodeBlock/>
     </div>
 }

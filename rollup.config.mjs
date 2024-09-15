@@ -8,13 +8,11 @@ import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
 import pkg from './package.json' with {type: 'json'}
 import sass from 'rollup-plugin-sass';
-import {writeFileSync} from "node:fs";
 import alias from "@rollup/plugin-alias";
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import postcss from "postcss";
-import css from "rollup-plugin-import-css";
 import replace from '@rollup/plugin-replace'
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -32,7 +30,7 @@ const commonPlugins = [
         'process.env.NODE_ENV': JSON.stringify('production'),
         __buildDate__: () => JSON.stringify(new Date()),
         __buildVersion: 15,
-        '@': path.resolve(__dirname, 'src')
+        '__PACKAGE_NAME__': pkg.name
     }),
     typescript({
         tsconfig: 'tsconfig.json',
@@ -75,7 +73,6 @@ let commonConfig = [{
     external: commonExternal,
     plugins: [
         del({targets: 'lib/*'}),
-
         ...commonPlugins]
 },
     {
